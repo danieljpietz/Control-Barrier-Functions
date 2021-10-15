@@ -1,0 +1,30 @@
+classdef Simulator
+    
+    properties
+        Vehicles
+    end
+    
+    methods
+        function obj = Simulator(vehicles)
+            obj.Vehicles = vehicles;
+        end
+        
+        function tick(obj, h)
+            Lane = cell(length(obj.Vehicles), 2);
+            for i = 1:length(obj.Vehicles)
+                vehicle = obj.Vehicles{i};
+                Lane(i,:) = {vehicle, vehicle.p};
+            end
+            Lane = sortrows(Lane, 2, 'descend');
+            
+            Lane{1,1}.LeadCar = nan;
+            Lane{1,1} = Lane{1,1}.tick(h);
+            
+            for i = 2:length(obj.Vehicles)
+                Lane{i,1}.LeadCar = Lane{i-1,1};
+                Lane{i,1} = Lane{i,1}.tick(h);
+            end
+        end
+    end
+end
+
