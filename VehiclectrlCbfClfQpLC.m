@@ -1,7 +1,7 @@
 %% Author: Jason Choi (jason.choi@berkeley.edu)
-function [u, slack, B, V, feas, comp_time] = VehiclectrlCbfClfQp(obj, x, u_ref)
+function [u, slack, B, V, feas, comp_time] = VehiclectrlCbfClfQpLC(obj, x, u_ref)
 
-clf_rate = 50;
+clf_rate = 10;
 cbf_rate = 10;
 slack = 2e-4;
 
